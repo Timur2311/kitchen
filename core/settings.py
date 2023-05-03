@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
     #external_apps
     'rest_framework',
+    
 ]
 
 MIDDLEWARE = [
