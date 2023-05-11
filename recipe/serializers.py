@@ -1,25 +1,25 @@
-from rest_framework import serializers
-from .models import Category, Recipe, Ingredient
+# from rest_framework import serializers
+# from .models import Category, Recipe, Ingredient
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ('id', 'title', 'subtitle')
+# class CategorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Category
+#         fields = ('id', 'title', 'subtitle')
 
 
-class IngredientSerializer(serializers.ModelSerializer):
+# class IngredientSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Ingredient
-        fields = ('name', 'quantity')
+#     class Meta:
+#         model = Ingredient
+#         fields = ('name', 'quantity')
 
 
-class RecipeSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
-    ingredients = IngredientSerializer(many=True, read_only=True)
+# class RecipeSerializer(serializers.ModelSerializer):
+#     category = CategorySerializer()
+#     ingredients = IngredientSerializer(many=True, read_only=True)
 
-    class Meta:
-        model = Recipe
-        fields = ('id', 'title', 'slug', 'hashtag', 'image',
-                  'steps', 'category', "ingredients")
+#     class Meta:
+#         model = Recipe
+#         fields = ('id', 'title', 'slug', 'hashtag', 'image',
+#                   'steps', 'category', "ingredients")

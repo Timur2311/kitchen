@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-0oo=^uf6f__!iqzci*8pv(hfo-p*wowwppe)pp+*jc0r%fs!r=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'recipe',
 
     # external_apps
+    'import_export',
     'rest_framework',
     'django_better_admin_arrayfield',
     'django_filters',
@@ -153,3 +154,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 
 }
+
