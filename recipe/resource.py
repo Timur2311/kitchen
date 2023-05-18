@@ -3,24 +3,11 @@ from recipe.models import Recipe, Ingredient
 
 from recipe.helpers.functions import get_categories
 
-from import_export.forms import ImportForm, forms
-
-class CustomImportForm(ImportForm):
-    image = forms.ImageField(required=True)  # Add an ImageField for image uploads
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['image'].widget.attrs.update({'accept': 'image/*'})  # Set accepted file types to images
-
-
-
 
 class IngredientResource(resources.ModelResource):
 
     def skip_row(self, instance, original, row, import_validation_errors=None):
         if instance.name is None or not instance.name:
-            
-
             return True
         return super().skip_row(instance, original, row,
                                 import_validation_errors=import_validation_errors)
@@ -46,14 +33,15 @@ class IngredientResource(resources.ModelResource):
         for step in row['steps'].split("\n"):
             steps.append(step)
         recipe.steps = steps
+
         recipe.save()
 
         # get categories and add to recipe
         categories_list = get_categories(row)
         for category in categories_list:
             recipe.categories.add(category)
-            
-        print(f"\n\n{row['image']}\n\n")
+
+        # create ingredient objects
         for ingredient in row['ingredients'].split("\n"):
             name_quantity_list = None
             if "–" in ingredient:
@@ -63,7 +51,7 @@ class IngredientResource(resources.ModelResource):
             if name_quantity_list is None:
                 continue
             ings = Ingredient.objects.filter(recipe=recipe,
-                                                name=name_quantity_list[0], quantity=name_quantity_list[1])
+                                             name=name_quantity_list[0], quantity=name_quantity_list[1])
             ings_count = ings.count()
             if ings_count == 0:
                 Ingredient.objects.create(
