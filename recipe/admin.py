@@ -4,18 +4,19 @@ from django_better_admin_arrayfield.admin.mixins import DynamicArrayMixin
 
 from .models import Recipe, Category, Ingredient
 
-# from .model_resouce import RecipeResource
-from import_export.admin import ImportExportModelAdmin, ImportExportMixin, ExportActionMixin, ImportMixin
+from .resource import IngredientResource, CustomImportForm
+from import_export.admin import ImportExportModelAdmin, ImportMixin
+
+from openpyxl import load_workbook
+import os
+
 
 admin.site.register(Ingredient)
 admin.site.register(Category)
-admin.site.register(Recipe)
 
+@admin.register(Recipe)
+class RecipeAdmin(ImportExportModelAdmin,ImportMixin, DynamicArrayMixin):
 
-# @admin.register(Recipe)
-# class RecipeAdmin(ImportExportModelAdmin,admin.ModelAdmin,DynamicArrayMixin):
-#     class Meta:
-#         resource_class = RecipeResource
-        
-   
+    resource_classes = [IngredientResource]
     
+    import_form = CustomImportForm

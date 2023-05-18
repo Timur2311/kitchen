@@ -1,0 +1,21 @@
+{% extends "admin/import_export/base.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h1>{% trans "Import" %} {{ resource.opts.verbose_name }}</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <form id="import-form" class="form-horizontal" method="post" enctype="multipart/form-data" action="{% url opts|admin_urlname:'import' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

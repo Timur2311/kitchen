@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 
-class Category(BaseModel):
+class   Category(BaseModel):
     title = models.CharField(max_length=32)
     subtitle = models.CharField(max_length=128)
 
@@ -18,11 +18,11 @@ class Recipe(BaseModel):
     title = models.CharField(max_length=16384)
     slug = models.SlugField(max_length=200)
 
-    hashtags = ArrayField(models.CharField(max_length=8192))
+    hashtags = ArrayField(models.CharField(max_length=8192, null=True, blank=True), default=list, null=True)
     image = models.ImageField(
         upload_to="recipe_photos/", blank=True, null=True)
 
-    steps = ArrayField(models.CharField(max_length=8192))
+    steps = ArrayField(models.CharField(max_length=8192, null=True, blank=True), default=list, null=True)
 
     categories = models.ManyToManyField(Category, related_name = "recipes")
 
@@ -33,7 +33,9 @@ class Recipe(BaseModel):
         i = 1
         text = slugify(self.title)        
         while Recipe.objects.filter(slug = text).exists() :
-            i+=1            
+            # avval tekstdan i ni olib tashlash kerak
+            i+=1   
+                     
             text = slugify(f"{text}+{i}")                           
         self.slug=slugify(text)        
         super(Recipe,self).save(*args,**kwargs)

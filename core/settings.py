@@ -46,8 +46,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_better_admin_arrayfield',
     'django_filters',
+    'dbbackup',
 
 ]
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': '/xotira/'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
