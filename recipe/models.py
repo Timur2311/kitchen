@@ -5,7 +5,6 @@ from helpers.models import BaseModel
 from django.utils.text import slugify
 
 
-
 class   Category(BaseModel):
     title = models.CharField(max_length=32)
     subtitle = models.CharField(max_length=128)

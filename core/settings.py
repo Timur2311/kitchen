@@ -105,6 +105,8 @@ DATABASES = {
     }
 }
 
+# new ones
+AUTH_USER_MODEL = 'recipe.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -158,4 +160,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 
 }
+
 
